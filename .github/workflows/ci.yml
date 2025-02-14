@@ -43,7 +43,7 @@ jobs:
 
       - name: 🧪 Rodar Testes
         run: |
-          if ls regra_negocio_test/Regra_Negocio.Test/*.cs 1> /dev/null 2>&1; then
+          if find regra_negocio_test/Regra_Negocio.Test -name "*Tests.cs" | grep .; then
             dotnet test regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
           else
             echo "Nenhum teste encontrado. Pulando etapa."
