@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Regra_Negocio.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd98fde938e7f68df421c4ae3c508a69f885a00a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+757865235e675066c8f21f182baa85fbdf18f443")]
 [assembly: System.Reflection.AssemblyProductAttribute("Regra_Negocio.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Regra_Negocio.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
