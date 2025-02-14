@@ -13,45 +13,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout do Código Principal (API)
+      - name: 📥 Checkout do Código da API
         uses: actions/checkout@v4
+        with:
+          repository: DevCarlosOli/regra_negocio
+          path: regra_negocio
 
       - name: 📥 Checkout do Projeto de Testes
         uses: actions/checkout@v4
         with:
           repository: DevCarlosOli/regra_negocio_test
-          path: regra_negocio_test
-
-      - name: 🔍 Listar Estrutura de Arquivos (Debug)
-        run: ls -R
+          path: regra_negocio/Regra_Negocio_Test
 
       - name: 🏗️ Configurar .NET 8.0
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8.0.x
 
+      - name: 🔍 Listar Estrutura de Arquivos
+        run: ls -R regra_negocio
+
       - name: 📦 Restaurar Dependências
-        run: dotnet restore
+        run: |
+          cd regra_negocio
+          dotnet restore Regra_Negocio.sln
 
       - name: 🔨 Compilar a Solução
-        run: dotnet build --no-restore --configuration Release
-
-      - name: 🏗️ Adicionar Projeto de Testes à Solution
         run: |
-          dotnet sln add regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj
-          dotnet restore
+          cd regra_negocio
+          dotnet build --no-restore --configuration Release
 
       - name: 🧪 Rodar Testes
         run: |
-          if find regra_negocio_test/Regra_Negocio.Test -name "*Tests.cs" | grep .; then
-            dotnet test regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
-          else
-            echo "Nenhum teste encontrado. Pulando etapa."
-          fi
+          cd regra_negocio
+          dotnet test Regra_Negocio_Test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
 
       - name: 📊 Publicar Relatório de Testes
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: TestResults/test-results.trx
+          path: regra_negocio/TestResults/test-results.trx
