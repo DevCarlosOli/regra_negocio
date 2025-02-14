@@ -46,7 +46,7 @@ jobs:
       - name: 🧪 Rodar Testes
         run: |
           cd regra_negocio
-          dotnet test ../regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
+          dotnet test Regra_Negocio_Test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
 
       - name: 📊 Publicar Relatório de Testes
         uses: actions/upload-artifact@v4
