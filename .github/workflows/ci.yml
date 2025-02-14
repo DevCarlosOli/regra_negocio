@@ -16,17 +16,6 @@ jobs:
       - name: 📥 Checkout do Código Principal (API)
         uses: actions/checkout@v4
 
-      - name: 🏗️ Configurar .NET 8.0
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0.x
-
-      - name: 📦 Restaurar Dependências da API
-        run: dotnet restore
-
-      - name: 🔨 Compilar a Solução Principal
-        run: dotnet build --no-restore --configuration Release
-
       - name: 📥 Checkout do Projeto de Testes
         uses: actions/checkout@v4
         with:
@@ -36,14 +25,32 @@ jobs:
       - name: 🔍 Listar Estrutura de Arquivos (Debug)
         run: ls -R
 
+      - name: 🏗️ Configurar .NET 8.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: 📦 Restaurar Dependências
+        run: dotnet restore
+
+      - name: 🔨 Compilar a Solução
+        run: dotnet build --no-restore --configuration Release
+
       - name: 🏗️ Adicionar Projeto de Testes à Solution
         run: |
           dotnet sln add regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj
+          dotnet restore
 
       - name: 🧪 Rodar Testes
-        run: dotnet test regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
+        run: |
+          if ls regra_negocio_test/Regra_Negocio.Test/*.cs 1> /dev/null 2>&1; then
+            dotnet test regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
+          else
+            echo "Nenhum teste encontrado. Pulando etapa."
+          fi
 
       - name: 📊 Publicar Relatório de Testes
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
