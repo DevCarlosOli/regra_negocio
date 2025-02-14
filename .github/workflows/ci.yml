@@ -33,8 +33,12 @@ jobs:
           repository: DevCarlosOli/regra_negocio_test
           path: Regra_Negocio_Test
 
-      - name: 🔄 Adicionar Referência do Projeto de Testes à API
-        run: dotnet sln add Regra_Negocio_Test/Regra_Negocio_Test.csproj
+      - name: 🏗️ Adicionar Projeto de Testes à Solution
+        run: |
+          cd Regra_Negocio_Test
+          dotnet restore
+          cd ..
+          dotnet sln add Regra_Negocio_Test/Regra_Negocio_Test.csproj
 
       - name: 🧪 Rodar Testes
         run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
