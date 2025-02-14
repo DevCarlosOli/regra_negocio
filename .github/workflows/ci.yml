@@ -38,7 +38,7 @@ jobs:
           cd Regra_Negocio_Test
           dotnet restore
           cd ..
-          dotnet sln add Regra_Negocio_Test/Regra_Negocio_Test.csproj
+          dotnet sln add Regra_Negocio_Test/Regra_Negocio.Test.csproj
 
       - name: 🧪 Rodar Testes
         run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
