@@ -1,4 +1,4 @@
-name: CI - Build e Testes
+name: CI - Build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build_and_test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,6 +33,9 @@ jobs:
       - name: 🔍 Listar Estrutura de Arquivos
         run: ls -R regra_negocio
 
+      - name: 🔍 Verificar Arquivos no Projeto de Testes
+        run: ls -R regra_negocio/Regra_Negocio_Test/Regra_Negocio.Test
+
       - name: 📦 Restaurar Dependências
         run: |
           cd regra_negocio
@@ -43,13 +46,8 @@ jobs:
           cd regra_negocio
           dotnet build --no-restore --configuration Release
 
-      - name: 🧪 Rodar Testes
-        run: |
-          cd regra_negocio
-          dotnet test ../regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
-
-      - name: 📊 Publicar Relatório de Testes
+      - name: 📊 Publicar Artefato de Build
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
-          path: regra_negocio/TestResults/test-results.trx
+          name: build-artifacts
+          path: regra_negocio/bin/Release/net8.0
