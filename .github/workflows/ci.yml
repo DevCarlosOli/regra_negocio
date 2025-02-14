@@ -3,51 +3,19 @@ name: CI - Build
 on:
   push:
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
+      - develop
       - main
 
 jobs:
-  build:
+  test-workflow:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout do Código da API
-        uses: actions/checkout@v4
-        with:
-          repository: DevCarlosOli/regra_negocio
-          path: regra_negocio
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
 
-      - name: 📥 Checkout do Projeto de Testes
-        uses: actions/checkout@v4
-        with:
-          repository: DevCarlosOli/regra_negocio_test
-          path: regra_negocio/Regra_Negocio_Test
-
-      - name: 🏗️ Configurar .NET 8.0
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0.x
-
-      - name: 🔍 Listar Estrutura de Arquivos
-        run: ls -R regra_negocio
-
-      - name: 🔍 Verificar Arquivos no Projeto de Testes
-        run: ls -R regra_negocio/Regra_Negocio_Test/Regra_Negocio.Test
-
-      - name: 📦 Restaurar Dependências
-        run: |
-          cd regra_negocio
-          dotnet restore Regra_Negocio.sln
-
-      - name: 🔨 Compilar a Solução
-        run: |
-          cd regra_negocio
-          dotnet build --no-restore --configuration Release
-
-      - name: 📊 Publicar Artefato de Build
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: regra_negocio/bin/Release/net8.0
+      - name: Exibir mensagem de teste
+        run: echo "🚀 GitHub Actions funcionando! Workflow rodando na branch ${{ github.ref_name }}"
