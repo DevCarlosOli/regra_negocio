@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regra_Negocio.API", "Regra_Negocio.API\Regra_Negocio.API.csproj", "{FBF6BF6D-7804-4B29-8267-77DA5ECBDE9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regra_Negocio.Test", "..\Regra_Negocio_Test\Regra_Negocio.Test\Regra_Negocio.Test.csproj", "{F7003387-251F-4A33-879D-03A258675877}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regra_Negocio.Test", "..\regra_negocio_test\Regra_Negocio.Test\Regra_Negocio.Test.csproj", "{56D1D8E1-A81E-4BC7-8A4F-FF6A33BE6E06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,10 @@ Global
 		{32F47AF7-37E9-411A-AFC3-9F9CB69F7264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32F47AF7-37E9-411A-AFC3-9F9CB69F7264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32F47AF7-37E9-411A-AFC3-9F9CB69F7264}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7003387-251F-4A33-879D-03A258675877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7003387-251F-4A33-879D-03A258675877}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7003387-251F-4A33-879D-03A258675877}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7003387-251F-4A33-879D-03A258675877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D1D8E1-A81E-4BC7-8A4F-FF6A33BE6E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D1D8E1-A81E-4BC7-8A4F-FF6A33BE6E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D1D8E1-A81E-4BC7-8A4F-FF6A33BE6E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D1D8E1-A81E-4BC7-8A4F-FF6A33BE6E06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
