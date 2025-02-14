@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout do Código
+      - name: 📥 Checkout do Código Principal (API)
         uses: actions/checkout@v4
 
       - name: 🏗️ Configurar .NET 8.0
@@ -21,27 +21,27 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: 📦 Restaurar Dependências
+      - name: 📦 Restaurar Dependências da API
         run: dotnet restore
 
-      - name: 🔨 Compilar a Solução
+      - name: 🔨 Compilar a Solução Principal
         run: dotnet build --no-restore --configuration Release
 
       - name: 📥 Checkout do Projeto de Testes
         uses: actions/checkout@v4
         with:
           repository: DevCarlosOli/regra_negocio_test
-          path: Regra_Negocio_Test
+          path: regra_negocio_test
+
+      - name: 🔍 Listar Estrutura de Arquivos (Debug)
+        run: ls -R
 
       - name: 🏗️ Adicionar Projeto de Testes à Solution
         run: |
-          cd Regra_Negocio_Test
-          dotnet restore
-          cd ..
-          dotnet sln add Regra_Negocio_Test/Regra_Negocio.Test.csproj
+          dotnet sln add regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj
 
       - name: 🧪 Rodar Testes
-        run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test regra_negocio_test/Regra_Negocio.Test/Regra_Negocio.Test.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
 
       - name: 📊 Publicar Relatório de Testes
         uses: actions/upload-artifact@v4
