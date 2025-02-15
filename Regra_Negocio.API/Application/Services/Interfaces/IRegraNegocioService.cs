@@ -5,5 +5,6 @@ namespace Regra_Negocio.API.Application.Services.Interfaces {
         Task<List<RegraNegocio>> FindAllRegistros();
         Task<RegraNegocio> FindById(int id);
         Task<RegraNegocio> InsertRegraNegocio(RegraNegocio regraNegocio);
+        Task<RegraNegocio> UpdateRegraNegocio(string codigoIdentificador, RegraNegocio novaRegra);
     }
 }

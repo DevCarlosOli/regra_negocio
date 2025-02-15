@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Regra_Negocio.API.Application.Services.Interfaces;
 using Regra_Negocio.API.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace Regra_Negocio.API.Application.Controllers {
     [Route("api/[controller]")]
@@ -24,7 +25,7 @@ namespace Regra_Negocio.API.Application.Controllers {
         }
 
         [HttpGet("id")]
-        public async Task<ActionResult<RegraNegocio>> GetRegistroById(int id) {
+        public async Task<ActionResult<RegraNegocio>> GetRegistroById([FromQuery(Name = "id")] int id) {
             try {
                 var registro = await _regraNegocioService.FindById(id);
                 return Ok(registro);
@@ -35,10 +36,24 @@ namespace Regra_Negocio.API.Application.Controllers {
         }
 
         [HttpPost]
-        public async Task<ActionResult<RegraNegocio>> PostRegraNegocio(RegraNegocio regraNegocio) {
+        public async Task<ActionResult<RegraNegocio>> PostRegraNegocio([FromBody] RegraNegocio regraNegocio) {
             try {
                 var registro = await _regraNegocioService.InsertRegraNegocio(regraNegocio);
                 return Ok(registro);
+            }
+            catch (Exception e) {
+                throw new Exception(e.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<RegraNegocio>> PutRegraNegocio(
+            [FromQuery(Name = "codigoIdentificador")][Required] string codigoIdentificador, 
+            [FromBody] RegraNegocio novaRegra
+        ) {
+            try {
+                var registroAtualizado = await _regraNegocioService.UpdateRegraNegocio(codigoIdentificador, novaRegra);
+                return Ok(registroAtualizado);
             }
             catch (Exception e) {
                 throw new Exception(e.Message);

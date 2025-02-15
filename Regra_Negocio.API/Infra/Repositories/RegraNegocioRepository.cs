@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Regra_Negocio.API.Domain;
 using Regra_Negocio.API.Infra.DbContext;
 using Regra_Negocio.API.Infra.Repositories.Interfaces;
+using Microsoft.Win32;
 
 namespace Regra_Negocio.API.Infra.Repositories {
     public class RegraNegocioRepository : IRegraNegocioRepository {
@@ -171,6 +172,48 @@ namespace Regra_Negocio.API.Infra.Repositories {
                     return regraNegocio;
                 }
             }
+        }
+
+        public async Task<RegraNegocio> UpdateRegraNegocio(string codigoIdentificador, RegraNegocio novaRegra) {
+            using (var connection = _conexaoPostreSQL.GetConnection()) {
+                await connection.OpenAsync();
+
+                using (var command = connection.CreateCommand()) {
+                    command.CommandText = @"
+                                            UPDATE regranegocio
+                                                SET nome_regra = COALESCE(@nome_regra, nome_regra), 
+                                                    identificador = COALESCE(@identificador, identificador), 
+                                                    descricao = COALESCE(@descricao, descricao), 
+                                                    evento_gatilho = @evento_gatilho, 
+                                                    exemplo_caso_de_uso = @exemplo_caso_de_uso, 
+                                                    pseudo_codigo = @pseudo_codigo, 
+                                                    documentacao = @documentacao, 
+                                                    regras_relacionadas = @regras_relacionadas, 
+                                                    autor_atualizacao = @autor_atualizacao, 
+                                                    data_atualizacao = @data_atualizacao
+                                                WHERE identificador = @codigoIdentificador
+                                                RETURNING regra_id
+                    ";
+
+                    command.Parameters.AddWithValue("@nome_regra", novaRegra.NomeRegra ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@identificador", novaRegra.Identificador ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@descricao", novaRegra.Descricao ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@evento_gatilho", novaRegra.EventoGatilho ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@exemplo_caso_de_uso", novaRegra.ExemploCasoDeUso ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@pseudo_codigo", novaRegra.PseudoCodigo ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@documentacao", novaRegra.Documentacao ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@regras_relacionadas", novaRegra.RegrasRelacionadas ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@autor_atualizacao", novaRegra.AutorAtualizacao ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@data_atualizacao", novaRegra.DataAtualizacao ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@codigoIdentificador", codigoIdentificador);
+
+                    object result = await command.ExecuteScalarAsync();
+
+                    if (result != null && int.TryParse(result.ToString(), out int regraId))
+                        return await FindById(regraId);
+                }
+            }
+            return null;
         }
     }
 }

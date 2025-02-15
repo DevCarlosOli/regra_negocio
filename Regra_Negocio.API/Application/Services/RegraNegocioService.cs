@@ -21,5 +21,9 @@ namespace Regra_Negocio.API.Application.Services {
         public async Task<RegraNegocio> InsertRegraNegocio(RegraNegocio regraNegocio) {
             return await _regraNegocioRepository.InsertRegraNegocio(regraNegocio);
         }
+
+        public async Task<RegraNegocio> UpdateRegraNegocio(string codigoIdentificador, RegraNegocio novaRegra) {
+            return await _regraNegocioRepository.UpdateRegraNegocio(codigoIdentificador, novaRegra);
+        }
     }
 }
