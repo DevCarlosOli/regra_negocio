@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj": {}
+    "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\Regra_Negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj": {
+    "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\Regra_Negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
+        "projectUniqueName": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\Regra_Negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
         "projectName": "Regra_Negocio.API",
-        "projectPath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
+        "projectPath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\Regra_Negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
         "packagesPath": "C:\\Users\\Carlos.Filho\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\obj\\",
         "projectStyle": "PackageReference",
@@ -52,6 +52,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.66, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
