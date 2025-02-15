@@ -12,6 +12,6 @@
         public string AutorDocumento { get; set; }
         public DateTime DataCriacao { get; set; }
         public string AutorAtualizacao { get; set; }
-        public DateTime DataAtualizacao { get; set; }
+        public DateTime? DataAtualizacao { get; set; }
     }
 }

@@ -10,8 +10,16 @@ namespace Regra_Negocio.API.Application.Services {
             _regraNegocioRepository = regraNegocioRepository;
         }
 
-        public IEnumerable<RegraNegocio> GetAllRegistros() {
-            return _regraNegocioRepository.GetAllRegistros();
+        public async Task<List<RegraNegocio>> FindAllRegistros() {
+            return await _regraNegocioRepository.FindAllRegistros();
+        }
+
+        public async Task<RegraNegocio> FindById(int id) {
+            return await _regraNegocioRepository.FindById(id);
+        }
+
+        public async Task<RegraNegocio> InsertRegraNegocio(RegraNegocio regraNegocio) {
+            return await _regraNegocioRepository.InsertRegraNegocio(regraNegocio);
         }
     }
 }

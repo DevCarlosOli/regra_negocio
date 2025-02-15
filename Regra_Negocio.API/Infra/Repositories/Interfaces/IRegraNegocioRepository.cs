@@ -2,6 +2,8 @@
 
 namespace Regra_Negocio.API.Infra.Repositories.Interfaces {
     public interface IRegraNegocioRepository {
-        IEnumerable<RegraNegocio> GetAllRegistros();
+        Task<List<RegraNegocio>> FindAllRegistros();
+        Task<RegraNegocio> FindById(int id);
+        Task<RegraNegocio> InsertRegraNegocio(RegraNegocio regraNegocio);
     }
 }

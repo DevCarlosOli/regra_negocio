@@ -1,5 +1,4 @@
 ﻿using Npgsql;
-using System.Data;
 
 namespace Regra_Negocio.API.Infra.DbContext {
     public class ConexaoPostreSQL {
@@ -9,7 +8,7 @@ namespace Regra_Negocio.API.Infra.DbContext {
             _connectionString = connectionString.GetConnectionString("BancoPostgreSQL") ?? throw new ArgumentNullException("A string de conexão não foi encontrada.");
         }
 
-        public IDbConnection GetConnection() { 
+        public NpgsqlConnection GetConnection() { 
             return new NpgsqlConnection(_connectionString);
         }
     }
