@@ -24,7 +24,7 @@ namespace Regra_Negocio.API.Application.Controllers {
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<RegraNegocio>> GetRegistroById([FromQuery(Name = "id")] int id) {
             try {
                 var registro = await _regraNegocioService.FindById(id);
@@ -48,12 +48,28 @@ namespace Regra_Negocio.API.Application.Controllers {
 
         [HttpPut]
         public async Task<ActionResult<RegraNegocio>> PutRegraNegocio(
-            [FromQuery(Name = "codigoIdentificador")][Required] string codigoIdentificador, 
+            [FromQuery(Name = "codigoIdentificador")][Required] string codigoIdentificador,
+            [FromQuery(Name = "nomeAtual")][Required] string nomeAtual,
             [FromBody] RegraNegocio novaRegra
         ) {
             try {
-                var registroAtualizado = await _regraNegocioService.UpdateRegraNegocio(codigoIdentificador, novaRegra);
+                var registroAtualizado = await _regraNegocioService.UpdateRegraNegocio(codigoIdentificador, nomeAtual, novaRegra);
                 return Ok(registroAtualizado);
+            }
+            catch (Exception e) {
+                throw new Exception(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<int>> DeleteRegraNegocio(int id) {
+            try {
+                int result = await _regraNegocioService.DeleteRegraNegocio(id);
+
+                if (result == 0)
+                    return NotFound(new {message = "Registro não encontrado!"});
+
+                return Ok(new { message = "Registro deletado com sucesso." });
             }
             catch (Exception e) {
                 throw new Exception(e.Message);

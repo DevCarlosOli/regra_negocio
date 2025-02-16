@@ -15,15 +15,24 @@ namespace Regra_Negocio.API.Application.Services {
         }
 
         public async Task<RegraNegocio> FindById(int id) {
-            return await _regraNegocioRepository.FindById(id);
+            return await _regraNegocioRepository.FindByNomeRegraAndIdentificador(id);
         }
 
         public async Task<RegraNegocio> InsertRegraNegocio(RegraNegocio regraNegocio) {
             return await _regraNegocioRepository.InsertRegraNegocio(regraNegocio);
         }
 
-        public async Task<RegraNegocio> UpdateRegraNegocio(string codigoIdentificador, RegraNegocio novaRegra) {
-            return await _regraNegocioRepository.UpdateRegraNegocio(codigoIdentificador, novaRegra);
+        public async Task<RegraNegocio> UpdateRegraNegocio(string codigoIdentificador, string nomeAtual, RegraNegocio novaRegra) {
+            return await _regraNegocioRepository.UpdateRegraNegocio(codigoIdentificador, nomeAtual, novaRegra);
+        }
+
+        public async Task<int> DeleteRegraNegocio(int id) { 
+            var registro = await FindById(id);
+
+            if (registro == null)
+                return 0;
+
+            return await _regraNegocioRepository.DeleteRegraNegocio(registro.RegraId);
         }
     }
 }

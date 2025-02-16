@@ -66,7 +66,7 @@ namespace Regra_Negocio.API.Infra.Repositories {
             }
         }
 
-        public async Task<RegraNegocio> FindById(int id) {
+        public async Task<RegraNegocio> FindByNomeRegraAndIdentificador(int id) {
             var registro = new RegraNegocio();
 
             using (var connection = _conexaoPostreSQL.GetConnection()) {
@@ -174,7 +174,7 @@ namespace Regra_Negocio.API.Infra.Repositories {
             }
         }
 
-        public async Task<RegraNegocio> UpdateRegraNegocio(string codigoIdentificador, RegraNegocio novaRegra) {
+        public async Task<RegraNegocio> UpdateRegraNegocio(string codigoIdentificador, string nomeAtual, RegraNegocio novaRegra) {
             using (var connection = _conexaoPostreSQL.GetConnection()) {
                 await connection.OpenAsync();
 
@@ -192,6 +192,7 @@ namespace Regra_Negocio.API.Infra.Repositories {
                                                     autor_atualizacao = @autor_atualizacao, 
                                                     data_atualizacao = @data_atualizacao
                                                 WHERE identificador = @codigoIdentificador
+                                                AND nome_regra = @nomeAtual
                                                 RETURNING regra_id
                     ";
 
@@ -206,14 +207,32 @@ namespace Regra_Negocio.API.Infra.Repositories {
                     command.Parameters.AddWithValue("@autor_atualizacao", novaRegra.AutorAtualizacao ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@data_atualizacao", novaRegra.DataAtualizacao ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@codigoIdentificador", codigoIdentificador);
+                    command.Parameters.AddWithValue("@nomeAtual", nomeAtual);
 
                     object result = await command.ExecuteScalarAsync();
 
                     if (result != null && int.TryParse(result.ToString(), out int regraId))
-                        return await FindById(regraId);
+                        return await FindByNomeRegraAndIdentificador(regraId);
                 }
             }
             return null;
+        }
+
+        public async Task<int> DeleteRegraNegocio(int regraId) {
+            using (var connection = _conexaoPostreSQL.GetConnection()) {
+                await connection.OpenAsync();
+
+                using (var command = connection.CreateCommand()) {
+                    command.CommandText = @"
+                                            DELETE FROM regranegocio
+                                                  WHERE regra_id = @regraId
+                    ";
+
+                    command.Parameters.AddWithValue("regraId", regraId);
+
+                    return await command.ExecuteNonQueryAsync();
+                }
+            }
         }
     }
 }
