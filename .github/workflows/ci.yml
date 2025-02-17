@@ -1,4 +1,4 @@
-name: CI - Build
+name: CI - Regra_Negocio_API
 
 on:
   push:
@@ -6,16 +6,48 @@ on:
       - '**'
   pull_request:
     branches:
-      - develop
       - main
+      - develop
 
 jobs:
-  test-workflow:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v3
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-      - name: Exibir mensagem de teste
-        run: echo "🚀 GitHub Actions funcionando! Workflow rodando na branch ${{ github.ref_name }}"
+      - name: Configurar o .NET 8.0
+        uses: actions/setup-dotnet@v3
+        with:
+            dotnet-version: '8.0.x'
+        
+      - name: Restaurar dependências
+        run: dotnet restore
+        
+      - name: Compilar a aplicação
+        run: dotnet build --configuration Release --no-restore
+
+  sucess-alert:
+    runs-on: ubuntu-latest
+    needs: build
+    if: success()
+    steps:
+      - name: Notificar Sucesso no Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{"username": "GitHub Actions", "content": "✅ Build e testes concluídos com sucesso!"}' \
+               ${{ secrets.https://discord.com/api/webhooks/1340822593027969206/pBolv0pjpQOU6_-0YjnaYufzeIYMp9K3a3iJhldYrlnSWJgWeiHgcNZSpuUMkaJdT_gn }}
+
+  failure-alert:
+    runs-on: ubuntu-latest
+    needs: build
+    if: failure()
+    steps:
+      - name: Notificar Falha no Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{"username": "GitHub Actions", "content": "❌ Falha no pipeline do GitHub Actions!"}' \
+               ${{ secrets.https://discord.com/api/webhooks/1340822593027969206/pBolv0pjpQOU6_-0YjnaYufzeIYMp9K3a3iJhldYrlnSWJgWeiHgcNZSpuUMkaJdT_gn }}
