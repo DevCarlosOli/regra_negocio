@@ -15,6 +15,10 @@ namespace Regra_Negocio.API.Application.Services {
         }
 
         public async Task<RegraNegocio> FindById(int id) {
+            var registroId = id;
+            if (registroId <= 0) {
+                return null;
+            }
             return await _regraNegocioRepository.FindById(id);
         }
 
@@ -23,6 +27,9 @@ namespace Regra_Negocio.API.Application.Services {
         }
 
         public async Task<RegraNegocio> UpdateRegraNegocio(string codigoIdentificador, string nomeAtual, RegraNegocio novaRegra) {
+            if (string.IsNullOrEmpty(codigoIdentificador) || string.IsNullOrEmpty(nomeAtual)) {
+                return null;
+            }
             return await _regraNegocioRepository.UpdateRegraNegocio(codigoIdentificador, nomeAtual, novaRegra);
         }
 
