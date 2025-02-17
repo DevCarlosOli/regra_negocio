@@ -38,7 +38,7 @@ jobs:
           curl -H "Content-Type: application/json" \
                -X POST \
                -d '{"username": "GitHub Actions", "content": "✅ Build e testes concluídos com sucesso!"}' \
-               ${{ secrets.https://discord.com/api/webhooks/1340822593027969206/pBolv0pjpQOU6_-0YjnaYufzeIYMp9K3a3iJhldYrlnSWJgWeiHgcNZSpuUMkaJdT_gn }}
+               ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   failure-alert:
     runs-on: ubuntu-latest
@@ -50,4 +50,5 @@ jobs:
           curl -H "Content-Type: application/json" \
                -X POST \
                -d '{"username": "GitHub Actions", "content": "❌ Falha no pipeline do GitHub Actions!"}' \
-               ${{ secrets.https://discord.com/api/webhooks/1340822593027969206/pBolv0pjpQOU6_-0YjnaYufzeIYMp9K3a3iJhldYrlnSWJgWeiHgcNZSpuUMkaJdT_gn }}
+               ${{ secrets.DISCORD_WEBHOOK_URL }}
+               
