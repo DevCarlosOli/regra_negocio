@@ -34,11 +34,12 @@ jobs:
     if: success()
     steps:
       - name: Notificar Sucesso no Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d '{"username": "GitHub Actions", "content": "✅ Build e testes concluídos com sucesso!"}' \
-               ${{ secrets.DISCORD_WEBHOOK_URL }}
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"content": "Build feita com sucesso! ✅ \nStatus: `${{ job.status }}` \nAutor: @${{ github.actor }}"}' \
+          $DISCORD_WEBHOOK_URL
 
   failure-alert:
     runs-on: ubuntu-latest
