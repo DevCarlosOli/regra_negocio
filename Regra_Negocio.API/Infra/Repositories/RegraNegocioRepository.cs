@@ -66,7 +66,7 @@ namespace Regra_Negocio.API.Infra.Repositories {
             }
         }
 
-        public async Task<RegraNegocio> FindByNomeRegraAndIdentificador(int id) {
+        public async Task<RegraNegocio> FindById(int id) {
             var registro = new RegraNegocio();
 
             using (var connection = _conexaoPostreSQL.GetConnection()) {
@@ -212,7 +212,7 @@ namespace Regra_Negocio.API.Infra.Repositories {
                     object result = await command.ExecuteScalarAsync();
 
                     if (result != null && int.TryParse(result.ToString(), out int regraId))
-                        return await FindByNomeRegraAndIdentificador(regraId);
+                        return await FindById(regraId);
                 }
             }
             return null;
