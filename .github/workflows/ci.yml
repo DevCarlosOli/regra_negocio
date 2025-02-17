@@ -47,6 +47,7 @@ jobs:
             echo "Erro: Webhook URL está vazio!"
             exit 1
           fi
+          DATE=$(date +'%Y-%m-%d')
           curl -X POST -H "Content-Type: application/json" \
           -d '{
               "content": "**🚨Alerta GitHub Actions**",
@@ -59,7 +60,7 @@ jobs:
                     {"name": "🔗 Issue", "value": "${{ github.event.issue.html_url }}", "inline": false},
                     {"name": "📄 Status", "value": "${{ job.status }}", "inline": true},
                     {"name": "👤 Autor", "value": "@${{ github.actor }}", "inline": true},
-                    {"name": "📅 Data", "value": "$(date +'%Y-%m-%d')", "inline": false}
+                    {"name": "📅 Data", "value": "'"$DATE"'", "inline": false}
                   ]
                 }
               ]
