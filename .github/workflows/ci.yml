@@ -20,7 +20,7 @@ jobs:
       - name: Configurar o .NET 8.0
         uses: actions/setup-dotnet@v3
         with:
-            dotnet-version: '8.0.x'
+          dotnet-version: '8.0.x'
         
       - name: Restaurar dependências
         run: dotnet restore
@@ -28,18 +28,28 @@ jobs:
       - name: Compilar a aplicação
         run: dotnet build --configuration Release --no-restore
 
-  sucess-alert:
+  success-alert:
     runs-on: ubuntu-latest
     needs: build
     if: success()
     steps:
+      - name: Verificar Webhook URL
+        run: |
+          echo "Webhook URL: ${{ secrets.DISCORD_WEBHOOK_URL }}"
+        
       - name: Notificar Sucesso no Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
+          STATUS="${{ job.status }}"
+          AUTHOR="${{ github.actor }}"
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "Erro: Webhook URL está vazio!"
+            exit 1
+          fi
           curl -X POST -H "Content-Type: application/json" \
-          -d '{"content": "Build feita com sucesso! ✅ \nStatus: `${{ job.status }}` \nAutor: @${{ github.actor }}"}' \
-          $DISCORD_WEBHOOK_URL
+          -d "{\"content\": \"Build feita com sucesso! ✅ \nStatus: $STATUS \nAutor: @$AUTHOR\"}" \
+          "$DISCORD_WEBHOOK_URL"
 
   failure-alert:
     runs-on: ubuntu-latest
@@ -47,9 +57,9 @@ jobs:
     if: failure()
     steps:
       - name: Notificar Falha no Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d '{"username": "GitHub Actions", "content": "❌ Falha no pipeline do GitHub Actions!"}' \
-               ${{ secrets.DISCORD_WEBHOOK_URL }}
-               
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"username": "GitHub Actions", "content": "❌ Falha no pipeline do GitHub Actions!"}' \
+          "$DISCORD_WEBHOOK_URL"
