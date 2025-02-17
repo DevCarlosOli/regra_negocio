@@ -35,8 +35,7 @@ jobs:
     steps:
       - name: Verificar Webhook URL
         run: |
-          echo "Webhook URL: ${{ secrets.DISCORD_WEBHOOK_URL }}"
-        
+          echo "Webhook URL está definido: ${{ secrets.DISCORD_WEBHOOK_URL }}"
       - name: Notificar Sucesso no Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -47,8 +46,24 @@ jobs:
             echo "Erro: Webhook URL está vazio!"
             exit 1
           fi
+          DATE=$(date +'%Y-%m-%d')
           curl -X POST -H "Content-Type: application/json" \
-          -d "{\"content\": \"Build feita com sucesso! ✅ \nStatus: $STATUS \nAutor: @$AUTHOR\"}" \
+          -d '{
+              "content": "**🚨Alerta GitHub Actions**",
+              "embeds": [
+                {
+                  "title": "✅ Build realizada com sucesso!",
+                  "color": 3066993,
+                  "fields": [
+                    {"name": "📌 Pull Request", "value": "${{ github.event.pull_request.title }}", "inline": false},
+                    {"name": "🔗 Issue", "value": "${{ github.event.issue.html_url }}", "inline": false},
+                    {"name": "📄 Status", "value": "${{ job.status }}", "inline": true},
+                    {"name": "👤 Autor", "value": "@${{ github.actor }}", "inline": true},
+                    {"name": "📅 Data", "value": "'"$DATE"'", "inline": false}
+                  ]
+                }
+              ]
+            }' \
           "$DISCORD_WEBHOOK_URL"
 
   failure-alert:
@@ -60,6 +75,25 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
+          STATUS="${{ job.status }}"
+          AUTHOR="${{ github.actor }}"
+          DATE=$(date +'%Y-%m-%d')
           curl -X POST -H "Content-Type: application/json" \
-          -d '{"username": "GitHub Actions", "content": "❌ Falha no pipeline do GitHub Actions!"}' \
+          -d '{
+              "content": "**🚨Alerta GitHub Actions**",
+              "embeds": [
+                {
+                  "title": "❌ Falha na build!",
+                  "color": 15158332,
+                  "fields": [
+                    {"name": "📌 Pull Request", "value": "${{ github.event.pull_request.title }}", "inline": false},
+                    {"name": "🔗 Issue", "value": "${{ github.event.issue.html_url }}", "inline": false},
+                    {"name": "📄 Status", "value": "${{ job.status }}", "inline": true},
+                    {"name": "👤 Autor", "value": "@${{ github.actor }}", "inline": true},
+                    {"name": "📅 Data", "value": "$(date +'%Y-%m-%d')", "inline": false},
+                    {"name": "🛠️ Erro", "value": "${{ steps.build.outcome }}", "inline": false}
+                  ]
+                }
+              ]
+            }' \
           "$DISCORD_WEBHOOK_URL"
