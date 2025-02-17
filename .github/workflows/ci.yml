@@ -35,11 +35,11 @@ jobs:
     steps:
       - name: Verificar Webhook URL
         run: |
-          echo "Webhook URL está definido: ${{ vars.DISCORD_WEBHOOK_URL }}"
+          echo "Webhook URL está definido: ${{ secrets.DISCORD_WEBHOOK_URL }}"
 
       - name: Notificar Sucesso no Discord
         env:
-          DISCORD_WEBHOOK_URL: ${{ vars.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           STATUS="${{ job.status }}"
           AUTHOR="${{ github.actor }}"
@@ -58,7 +58,7 @@ jobs:
     steps:
       - name: Notificar Falha no Discord
         env:
-          DISCORD_WEBHOOK_URL: ${{ vars.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -X POST -H "Content-Type: application/json" \
           -d '{"username": "GitHub Actions", "content": "❌ Falha no pipeline do GitHub Actions!"}' \
