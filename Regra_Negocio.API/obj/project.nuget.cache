@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BPNgDW+kn30=",
+  "dgSpecHash": "xOuVe05Rfg4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
+  "projectFilePath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\Regra_Negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Carlos.Filho\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
     "C:\\Users\\Carlos.Filho\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

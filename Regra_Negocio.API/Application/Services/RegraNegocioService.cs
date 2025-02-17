@@ -15,7 +15,7 @@ namespace Regra_Negocio.API.Application.Services {
         }
 
         public async Task<RegraNegocio> FindById(int id) {
-            return await _regraNegocioRepository.FindByNomeRegraAndIdentificador(id);
+            return await _regraNegocioRepository.FindById(id);
         }
 
         public async Task<RegraNegocio> InsertRegraNegocio(RegraNegocio regraNegocio) {

@@ -36,7 +36,6 @@ jobs:
       - name: Verificar Webhook URL
         run: |
           echo "Webhook URL está definido: ${{ secrets.DISCORD_WEBHOOK_URL }}"
-
       - name: Notificar Sucesso no Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}

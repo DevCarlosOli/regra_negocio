@@ -660,11 +660,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
+      "projectUniqueName": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\Regra_Negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
       "projectName": "Regra_Negocio.API",
-      "projectPath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
+      "projectPath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\Regra_Negocio\\Regra_Negocio.API\\Regra_Negocio.API.csproj",
       "packagesPath": "C:\\Users\\Carlos.Filho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\regra_negocio\\Regra_Negocio.API\\obj\\",
+      "outputPath": "C:\\Users\\Carlos.Filho\\Desktop\\Projetos\\Regra_Negocio\\Regra_Negocio.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
