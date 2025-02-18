@@ -1,0 +1,66 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h4>Regras de Negócio</h4>            
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label">Nome:</label>
+                    <input type="text" asp-for="NovaRegra.NomeRegra" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Identificador:</label>
+                    <input type="text" asp-for="NovaRegra.Identificador" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Descrição:</label>
+                    <textarea asp-for="NovaRegra.Descricao" class="form-control" ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Evento/Gatilho:</label>
+                    <textarea asp-for="NovaRegra.EventoGatilho" class="form-control" ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Exemplo de Caso de Uso:</label>
+                    <textarea asp-for="NovaRegra.ExemploCasoDeUso" class="form-control" ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Pseudo-Código:</label>
+                    <textarea asp-for="NovaRegra.PseudoCodigo" class="form-control" ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Documentação:</label>
+                    <textarea asp-for="NovaRegra.Descricao" class="form-control" ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Regras Relacionadas:</label>
+                    <textarea asp-for="NovaRegra.RegrasRelacionadas" class="form-control" ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Autor do Documento:</label>
+                    <input type="text" asp-for="NovaRegra.AutorDocumento" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Data da Criação do Documento:</label>
+                    <input type="datetime" asp-for="NovaRegra.DataCriacao" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Autor da Atualização do Documento:</label>
+                    <input type="text" asp-for="NovaRegra.AutorAtualizacao" class="form-control" >
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Data da Atualização do Documento:</label>
+                    <input type="datetime" asp-for="NovaRegra.DataAtualizacao" class="form-control" >
+                </div>
+                <button type="submit" asp-page-handler="InserirRegra" class="btn btn-success">+ Inserir Regra</button>
+            </form>
+        </div>
+    </div>
+</div>
