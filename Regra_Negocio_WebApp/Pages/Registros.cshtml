@@ -1,0 +1,35 @@
+﻿@page
+@model RegistrosModel
+@{
+    ViewData["Title"] = "Registros";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Registros.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Data de Criação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var regra in Model.Registros)
+            {
+                <tr>
+                    <td>@regra.RegraId</td>
+                    <td>@regra.NomeRegra</td>
+                    <td>@regra.Descricao</td>
+                    <td>@regra.DataCriacao.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum registro encontrado.</p>
+}

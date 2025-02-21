@@ -17,5 +17,16 @@ namespace Regra_Negocio_WebApp.Services {
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<List<RegraNegocio>> GetRegrasAsync() {
+            var response = await _httpClient.GetAsync("RegraNegocio");
+
+            if (response.IsSuccessStatusCode) {
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<List<RegraNegocio>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+
+            return new List<RegraNegocio>();
+        }
     }
 }
