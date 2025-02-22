@@ -15,7 +15,7 @@ namespace Regra_Negocio_WebApp.Pages {
             _regraNegocioService = regraNegocioService;
         }
 
-        public async void OnGetAsync() {
+        public async Task OnGetAsync() {
             Registros = await _regraNegocioService.GetRegrasAsync();
         }
     }

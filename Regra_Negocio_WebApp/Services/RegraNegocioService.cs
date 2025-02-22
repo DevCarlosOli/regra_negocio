@@ -23,7 +23,8 @@ namespace Regra_Negocio_WebApp.Services {
 
             if (response.IsSuccessStatusCode) {
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<List<RegraNegocio>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                var result = JsonSerializer.Deserialize<List<RegraNegocio>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return result;
             }
 
             return new List<RegraNegocio>();

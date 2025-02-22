@@ -5,8 +5,7 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-@if (Model.Registros.Any())
-{
+@if (Model.Registros.Any()) {
     <table class="table">
         <thead>
             <tr>
@@ -17,8 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var regra in Model.Registros)
-            {
+            @foreach (var regra in Model.Registros) {
                 <tr>
                     <td>@regra.RegraId</td>
                     <td>@regra.NomeRegra</td>
@@ -29,7 +27,6 @@
         </tbody>
     </table>
 }
-else
-{
+else {
     <p>Nenhum registro encontrado.</p>
 }

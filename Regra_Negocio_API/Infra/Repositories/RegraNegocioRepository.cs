@@ -36,10 +36,9 @@ namespace Regra_Negocio_API.Infra.Repositories {
                                                 FROM regranegocio
                     ";
 
-                    var regraNegocio = new RegraNegocio();
-
                     using (var reader = await command.ExecuteReaderAsync()) {
                         while (await reader.ReadAsync()) {
+                            var regraNegocio = new RegraNegocio();
                             regraNegocio.RegraId = reader.IsDBNull("regra_id") ? 0 : reader.GetInt32("regra_id");
                             regraNegocio.NomeRegra = reader.IsDBNull("nome_regra") ? null : reader.GetString("nome_regra");
                             regraNegocio.Identificador = reader.IsDBNull("identificador") ? null : reader.GetString("identificador");
@@ -58,7 +57,7 @@ namespace Regra_Negocio_API.Infra.Repositories {
                         }
                     }
                 }
-                return listaRegistros;
+                return listaRegistros.ToList();
             }
         }
 
